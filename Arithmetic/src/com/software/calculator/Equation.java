@@ -60,7 +60,7 @@ public class Equation {
                         strOp1 = '('+strOp1+')';
                     }
                     symbol = create_symbol();
-                    openrand2 = random.nextInt(11);
+                    openrand2 = random.nextInt(11)+1;
                     strOp2 = int2String(openrand2);
                     change = random.nextInt(10);
                     if(change == 0){
