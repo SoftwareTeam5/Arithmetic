@@ -23,7 +23,8 @@ public class Calculate {
         return result;  
     }  
     /** 
-     * ½«ÖĞ×º±í´ïÊ½×ª»¯Îªºó×º±í´ïÊ½ 
+     *
+     * å°†ä¸­ç¼€è¡¨è¾¾å¼è½¬åŒ–ä¸ºåç¼€è¡¨è¾¾å¼ 
      */  
     public ArrayList<String> getPostOrder(ArrayList<String> inOrderList) {
         ArrayList<String> result = new ArrayList<String>();  
@@ -58,7 +59,8 @@ public class Calculate {
     }  
       
     /** 
-     * ¼ÆËãºó×º±í´ïÊ½ 
+     *
+     * è®¡ç®—åç¼€è¡¨è¾¾å¼ 
      */  
     public Fraction calculate(ArrayList<String> postOrder){  
         Stack<Fraction> stack = new Stack();
@@ -72,15 +74,22 @@ public class Calculate {
             	Fraction front = (Fraction)stack.pop();  
             	Fraction res = new Fraction();  
                 switch (postOrder.get(i).charAt(0)) {  
+                    //åŠ æ³•
                 case '+':  
                     res = Fraction.add(front, back);
                     break;  
+
+                    //å‡æ³•
                 case '-':  
                     res = Fraction.sub(front, back);
-                    break;  
+                    break; 
+
+                    //ä¹˜æ³• 
                 case '*':  
                     res = Fraction.mul(front, back);  
                     break;  
+
+                    //é™¤æ³•
                 case '/':  
                     res = Fraction.div(front, back);  
                     break;  
@@ -92,7 +101,8 @@ public class Calculate {
     }  
       
     /** 
-     * ±È½ÏÔËËã·ûµÈ¼¶ 
+     * 
+     *æ¯”è¾ƒè¿ç®—ç¬¦ç­‰çº§ 
      */  
     public static boolean compare(String peek, String cur){  
         if("*".equals(peek) && ("/".equals(cur) || "*".equals(cur) ||"+".equals(cur) ||"-".equals(cur))){  
