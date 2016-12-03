@@ -2,29 +2,29 @@ package com.software.calculator;
 
 
 /**
- * ¶ÔÔËËãÊ½µÄÕıÈ·´ğ°¸ÒÔ¼°ÓÃ»§¸ø¶¨µÄ´ğ°¸½øĞĞ¼ìÑé£¬²¢·µ»Ø¼ìÑé½á¹û
- * @author ³ÂŸö
+ * å¯¹è¿ç®—å¼çš„æ­£ç¡®ç­”æ¡ˆä»¥åŠç”¨æˆ·ç»™å®šçš„ç­”æ¡ˆè¿›è¡Œæ£€éªŒï¼Œå¹¶è¿”å›æ£€éªŒç»“æœ
+ * @author é™ˆç‡Š
  *
  */
 public class MatchAnswer {
 
-	public static int RightNums = 0;//ÕıÈ·´ğ°¸µÄÊıÁ¿
-	public static int wrongNums = 0;//´íÎó´ğ°¸µÄÊıÁ¿
+	public static int RightNums = 0;//æ­£ç¡®ç­”æ¡ˆçš„æ•°é‡
+	public static int wrongNums = 0;//é”™è¯¯ç­”æ¡ˆçš„æ•°é‡
 	
 	/**
-	 * ¶ÔÔËËãÊ½µÄÕıÈ·´ğ°¸ÒÔ¼°ÓÃ»§¸ø¶¨µÄ´ğ°¸½øĞĞ¼ìÑé£¬²¢·µ»Ø¼ìÑé½á¹û
-	 * @param rightAnswer ÔËËãÊ½µÄÕıÈ·´ğ°¸
-	 * @param userAnswer  ÓÃ»§¸ø¶¨µÄ´ğ°¸
-	 * @return ¼ìÑé½á¹û
+	 * å¯¹è¿ç®—å¼çš„æ­£ç¡®ç­”æ¡ˆä»¥åŠç”¨æˆ·ç»™å®šçš„ç­”æ¡ˆè¿›è¡Œæ£€éªŒï¼Œå¹¶è¿”å›æ£€éªŒç»“æœ
+	 * @param rightAnswer è¿ç®—å¼çš„æ­£ç¡®ç­”æ¡ˆ
+	 * @param userAnswer  ç”¨æˆ·ç»™å®šçš„ç­”æ¡ˆ
+	 * @return æ£€éªŒç»“æœ
 	 */
 	public static StringBuffer match(String rightAnswer, String userAnswer) {
-		StringBuffer output = new StringBuffer("ÕıÈ·´ğ°¸£º" + rightAnswer + " ÄãµÄ´ğ°¸£º" + userAnswer + " ");
+		StringBuffer output = new StringBuffer("æ­£ç¡®ç­”æ¡ˆï¼š" + rightAnswer + " ä½ çš„ç­”æ¡ˆï¼š" + userAnswer + " ");
 		if (rightAnswer.equals(userAnswer)) {
 			RightNums ++;
-			output.append("ÕıÈ·£¡\n");
+			output.append("æ­£ç¡®ï¼\n");
 		} else {
 			wrongNums ++;
-			output.append("´íÎó£¡\n");
+			output.append("é”™è¯¯ï¼\n");
 		}
 		return output;
 	}

@@ -5,72 +5,72 @@ import java.io.IOException;
 import javax.swing.*;
 
 /**
- * ³ÌĞòµÄUI½çÃæ£¬¶ÔÓÃ»§µÄÊäÈëÊä³ö½øĞĞÅĞ¶¨ÔËËã£¬²¢¸ø³öÏàÓ¦µÄÌáÊ¾
- * ³ÌĞòµÄÖ÷¿ò¼Ü£¬µ÷ÓÃÁËÆäËûÀà·â×°ºÃµÄ¾²Ì¬·½·¨
- * @author ³ÂŸö
+ * ç¨‹åºçš„UIç•Œé¢ï¼Œå¯¹ç”¨æˆ·çš„è¾“å…¥è¾“å‡ºè¿›è¡Œåˆ¤å®šè¿ç®—ï¼Œå¹¶ç»™å‡ºç›¸åº”çš„æç¤º
+ * ç¨‹åºçš„ä¸»æ¡†æ¶ï¼Œè°ƒç”¨äº†å…¶ä»–ç±»å°è£…å¥½çš„é™æ€æ–¹æ³•
+ * @author é™ˆç‡Š
  *
  */
 public class CaculatorView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	/** ´°¿ÚµÄ¿í¶È */
+	/** çª—å£çš„å®½åº¦ */
 	public static final int WIDTH = 810;
-	/** ´°¿ÚµÄ¸ß¶È */
-	public static final int HEIGTH = 500;//´°¿ÚµÄ¸ß¶È
+	/** çª—å£çš„é«˜åº¦ */
+	public static final int HEIGTH = 500;//çª—å£çš„é«˜åº¦
 	
 	/**
-	 * ÔËËãÊ½µÄÏÔÊ¾ÎÄ±¾¿òÇøÓò
+	 * è¿ç®—å¼çš„æ˜¾ç¤ºæ–‡æœ¬æ¡†åŒºåŸŸ
 	 */
 	private JTextArea equationInput = new JTextArea(10, 15);
 	private JScrollPane scp1 = new JScrollPane(equationInput);
 	
 	/**
-	 * ÓÃ»§´ğ°¸µÄÊäÈëÎÄ±¾¿òÇøÓò
+	 * ç”¨æˆ·ç­”æ¡ˆçš„è¾“å…¥æ–‡æœ¬æ¡†åŒºåŸŸ
 	 */
 	private JTextArea answerInput = new JTextArea(10, 15);
 	private JScrollPane scp2 = new JScrollPane(answerInput);
 	
 	/**
-	 * ´ğ°¸¼ìÑéµÄ½á¹ûÊä³öÎÄ±¾¿òÇøÓò
+	 * ç­”æ¡ˆæ£€éªŒçš„ç»“æœè¾“å‡ºæ–‡æœ¬æ¡†åŒºåŸŸ
 	 */
 	private JTextArea matchAnswer = new JTextArea(10, 25);
 	private JScrollPane scp3 = new JScrollPane(matchAnswer);
 	
-	private JTextField numberText = new JTextField();//ÌâÁ¿µÄÊäÈë¿ò
-	private JLabel jLabel = new JLabel("ÌâÁ¿£º");//ÌâÁ¿µÄÎÄ±¾¿ò
+	private JTextField numberText = new JTextField();//é¢˜é‡çš„è¾“å…¥æ¡†
+	private JLabel jLabel = new JLabel("é¢˜é‡ï¼š");//é¢˜é‡çš„æ–‡æœ¬æ¡†
 	
-	private JButton ensureEquation = new JButton("È·ÈÏ");//È·ÈÏ°´Å¥
-	private JButton ensureAnswer = new JButton("È·ÈÏ´ğ°¸");//È·ÈÏ´ğ°¸°´Å¥
-	private JButton reset = new JButton("ÖØÖÃ");//ÖØÖÃ°´Å¥
+	private JButton ensureEquation = new JButton("ç¡®è®¤");//ç¡®è®¤æŒ‰é’®
+	private JButton ensureAnswer = new JButton("ç¡®è®¤ç­”æ¡ˆ");//ç¡®è®¤ç­”æ¡ˆæŒ‰é’®
+	private JButton reset = new JButton("é‡ç½®");//é‡ç½®æŒ‰é’®
 
-	private StringBuffer equationStrs = new StringBuffer();//±í´ïÊ½µÄ×Ö·û´®»º³åÇø
-	private StringBuffer resultStrs = new StringBuffer();//ÓÃ»§¸ø¶¨´ğ°¸µÄ×Ö·û´®»º³åÇø
-	private StringBuffer matchOutputStrs = new StringBuffer();//¼ì²â½á¹ûµÄ×Ö·û´®»º³åÇø
+	private StringBuffer equationStrs = new StringBuffer();//è¡¨è¾¾å¼çš„å­—ç¬¦ä¸²ç¼“å†²åŒº
+	private StringBuffer resultStrs = new StringBuffer();//ç”¨æˆ·ç»™å®šç­”æ¡ˆçš„å­—ç¬¦ä¸²ç¼“å†²åŒº
+	private StringBuffer matchOutputStrs = new StringBuffer();//æ£€æµ‹ç»“æœçš„å­—ç¬¦ä¸²ç¼“å†²åŒº
 
-	private String[] userResult = new String[100];//ÓÃ»§¸ø¶¨µÄ´ğ°¸
-	private String[] rightResult = new String[100];//ÔËËãÊ½µÄÕıÈ·´ğ°¸
-	private String[] expression = new String[100];//Ëæ»úÉú³ÉµÄ±í´ïÊ½
-	private int ensureNumber;//ÔËËãÊ½µÄÌâÁ¿
+	private String[] userResult = new String[100];//ç”¨æˆ·ç»™å®šçš„ç­”æ¡ˆ
+	private String[] rightResult = new String[100];//è¿ç®—å¼çš„æ­£ç¡®ç­”æ¡ˆ
+	private String[] expression = new String[100];//éšæœºç”Ÿæˆçš„è¡¨è¾¾å¼
+	private int ensureNumber;//è¿ç®—å¼çš„é¢˜é‡
 		
 	/**
-	 * CaculatorViewµÄ¹¹Ôì·½·¨
+	 * CaculatorViewçš„æ„é€ æ–¹æ³•
 	 */
 	public CaculatorView() {
 		
-		//ÉèÖÃ±êÌâºÍ´óĞ¡
-		this.setTitle("ÔËËãÆ÷");
+		//è®¾ç½®æ ‡é¢˜å’Œå¤§å°
+		this.setTitle("è¿ç®—å™¨");
 		this.setSize(WIDTH,HEIGTH);
 		
-		//ÉèÖÃÖĞ¼äÈİÆ÷
+		//è®¾ç½®ä¸­é—´å®¹å™¨
 		JPanel jPanel = new JPanel();
 		this.setContentPane(jPanel);
 		jPanel.setLayout(null);
 	
-		//ÉèÖÃ±í´ïÊ½ºÍ¼ìÑé½á¹ûÎÄ±¾¿òÎª²»¿É±à¼­×´Ì¬
+		//è®¾ç½®è¡¨è¾¾å¼å’Œæ£€éªŒç»“æœæ–‡æœ¬æ¡†ä¸ºä¸å¯ç¼–è¾‘çŠ¶æ€
 		equationInput.setEditable(false);
 		matchAnswer.setEditable(false);
 		
-		//ÉèÖÃ¸÷¸öUI²¿¼şµÄ´óĞ¡ÒÔ¼°Î»ÖÃ
+		//è®¾ç½®å„ä¸ªUIéƒ¨ä»¶çš„å¤§å°ä»¥åŠä½ç½®
 		jLabel.setBounds(20, 10, 50, 25);
 		numberText.setBounds(60, 10, 60, 25);
 		ensureEquation.setBounds(125, 10, 60, 25);
@@ -80,12 +80,12 @@ public class CaculatorView extends JFrame implements ActionListener {
 		scp2.setBounds(250,50,200,400);
 		scp3.setBounds(480,50,300,400);
 		
-		//ÎªÈı¸ö°´Å¥Ìí¼ÓÊÂ¼ş¼àÌı
+		//ä¸ºä¸‰ä¸ªæŒ‰é’®æ·»åŠ äº‹ä»¶ç›‘å¬
 		ensureEquation.addActionListener(this);
 		ensureAnswer.addActionListener(this);
 		reset.addActionListener(this);
 		
-		//°ÑËùÓĞUI²¿¼şÌí¼Óµ½jPanelÃæ°åÀï
+		//æŠŠæ‰€æœ‰UIéƒ¨ä»¶æ·»åŠ åˆ°jPanelé¢æ¿é‡Œ
 		jPanel.add(ensureEquation);
 		jPanel.add(ensureAnswer);
 		jPanel.add(reset);
@@ -95,15 +95,15 @@ public class CaculatorView extends JFrame implements ActionListener {
 		jPanel.add(jLabel);
 		jPanel.add(numberText);
 		
-		//ÉèÖÃ¿É¼ûĞÔ
+		//è®¾ç½®å¯è§æ€§
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//½«´°¿ÚÏÔÊ¾ÔÚÆÁÄ»ÖĞ¼ä
+		//å°†çª—å£æ˜¾ç¤ºåœ¨å±å¹•ä¸­é—´
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		
-		//Éú³É±í´ïÊ½µÄÊı¾İ³õÊ¼»¯·½·¨
+		//ç”Ÿæˆè¡¨è¾¾å¼çš„æ•°æ®åˆå§‹åŒ–æ–¹æ³•
 		Equation.createEquation();
 		
 	}
@@ -113,10 +113,10 @@ public class CaculatorView extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * ËùÓĞÊı¾İµÄÖØÖÃ
+	 * æ‰€æœ‰æ•°æ®çš„é‡ç½®
 	 * @param flag
-	 * flagÎªtrue£¬±íÊ¾µã»÷ÁËÖØÖÃ°´Å¥£¬ÔònumberTextÇå¿Õ
-	 * flagÎªfalse£¬±íÊ¾µã»÷ÁËÈ·¶¨°´Å¥£¬ÔònumberText²»Çå¿Õ
+	 * flagä¸ºtrueï¼Œè¡¨ç¤ºç‚¹å‡»äº†é‡ç½®æŒ‰é’®ï¼Œåˆ™numberTextæ¸…ç©º
+	 * flagä¸ºfalseï¼Œè¡¨ç¤ºç‚¹å‡»äº†ç¡®å®šæŒ‰é’®ï¼Œåˆ™numberTextä¸æ¸…ç©º
 	 */
 	void resetDatas(boolean flag) {
 		if (flag) {
@@ -140,89 +140,89 @@ public class CaculatorView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		String button = e.getActionCommand();
-		if (button.equals("È·ÈÏ")) {
+		if (button.equals("ç¡®è®¤")) {
 			resetDatas(false);
 			String numberStr = numberText.getText();
 			
 			if (numberStr.length() != 0) {
 				
 				/**
-				 * ¶ÔÊäÈëÌâÁ¿½øĞĞÅĞ¶Ï£¬ÉÏÏŞÎª100Ìâ£¬Èç¹û³¬³ö»òÔòĞ¡ÓÚµÈÓÚ0Ìâ£¬¶¼»á¸ø³öÏàÓ¦ÌáÊ¾
-				 * µ±ÊäÈëÕıÈ·Ê±£¬°ÑÊäÈë×ª»¯ÎªintĞÍ±£´æÔÚensureNumberÀï
+				 * å¯¹è¾“å…¥é¢˜é‡è¿›è¡Œåˆ¤æ–­ï¼Œä¸Šé™ä¸º100é¢˜ï¼Œå¦‚æœè¶…å‡ºæˆ–åˆ™å°äºç­‰äº0é¢˜ï¼Œéƒ½ä¼šç»™å‡ºç›¸åº”æç¤º
+				 * å½“è¾“å…¥æ­£ç¡®æ—¶ï¼ŒæŠŠè¾“å…¥è½¬åŒ–ä¸ºintå‹ä¿å­˜åœ¨ensureNumberé‡Œ
 				 */
 				if ((Integer.parseInt(numberStr) > 100) || (Integer.parseInt(numberStr) <= 0)) {
-					JOptionPane.showMessageDialog(null, "ÌâÁ¿×î¶àÎª100Ìâ£¡ÇëÖØĞÂÊäÈë£¡", "ÌáÊ¾", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "é¢˜é‡æœ€å¤šä¸º100é¢˜ï¼è¯·é‡æ–°è¾“å…¥ï¼", "æç¤º", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					ensureNumber = Integer.parseInt(numberStr);
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "ÇëÏÈÊäÈëÌâÁ¿£¡", "ÌáÊ¾", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "è¯·å…ˆè¾“å…¥é¢˜é‡ï¼", "æç¤º", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			for (int i = 0; i < ensureNumber; i ++) {
 				
 				/**
-				 * µ÷ÓÃEquationÀàµÄgetEquation()Éú³É±í´ïÊ½·½·¨
-				 * ²¢°ÑÉú³ÉµÄ±í´ïÊ½±£´æÔÚexpressionÊı×éÀïÃæ
+				 * è°ƒç”¨Equationç±»çš„getEquation()ç”Ÿæˆè¡¨è¾¾å¼æ–¹æ³•
+				 * å¹¶æŠŠç”Ÿæˆçš„è¡¨è¾¾å¼ä¿å­˜åœ¨expressionæ•°ç»„é‡Œé¢
 				 */
 				expression[i] = Equation.getEquation();
-				equationStrs.append("Ìâ" +  (i + 1) + ": " + expression[i] + "\n");
+				equationStrs.append("é¢˜" +  (i + 1) + ": " + expression[i] + "\n");
 		  
 				/**
-				 * µ÷ÓÃCalculateÀàµÄgetAnswer()·½·¨
-				 * ¼ÆËã³öÔËËãÊ½µÄ´ğ°¸²¢±£´æÔÚrightResultÊı×éÀïÃæ
+				 * è°ƒç”¨Calculateç±»çš„getAnswer()æ–¹æ³•
+				 * è®¡ç®—å‡ºè¿ç®—å¼çš„ç­”æ¡ˆå¹¶ä¿å­˜åœ¨rightResultæ•°ç»„é‡Œé¢
 				 */
 		        rightResult[i] = Calculate.getAnswer(expression[i]);
-		        resultStrs.append("Ìâ" +  (i + 1) + ": " + rightResult[i] + "\n");
+		        resultStrs.append("é¢˜" +  (i + 1) + ": " + rightResult[i] + "\n");
 			}
 			equationInput.setText(equationStrs.toString());			
-		} else if (button.equals("È·ÈÏ´ğ°¸")) {
+		} else if (button.equals("ç¡®è®¤ç­”æ¡ˆ")) {
 			String numberStr = numberText.getText();
 			
 			/**
-			 * ¶ÔÊäÈë½øĞĞÅĞ¶Ï£¬µ±ÌâÁ¿»òÔò±í´ïÊ½Î´Éú³ÉÊ±£¬¸ø³öÏàÓ¦´íÎóÌáÊ¾
+			 * å¯¹è¾“å…¥è¿›è¡Œåˆ¤æ–­ï¼Œå½“é¢˜é‡æˆ–åˆ™è¡¨è¾¾å¼æœªç”Ÿæˆæ—¶ï¼Œç»™å‡ºç›¸åº”é”™è¯¯æç¤º
 			 */
 			if (numberStr.length() == 0) {
-				JOptionPane.showMessageDialog(null, "ÇëÏÈÊäÈëÌâÁ¿£¡", "ÌáÊ¾", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "è¯·å…ˆè¾“å…¥é¢˜é‡ï¼", "æç¤º", JOptionPane.INFORMATION_MESSAGE);
 			} else if(ensureNumber == 0) {
-				JOptionPane.showMessageDialog(null, "ÇëÏÈÉú³É±í´ïÊ½£¡", "ÌáÊ¾", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "è¯·å…ˆç”Ÿæˆè¡¨è¾¾å¼ï¼", "æç¤º", JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				userResult = answerInput.getText().split("\n");
 				
 				/**
-				 * ¶ÔÓÃ»§¸ø¶¨µÄ´ğ°¸ÊıÁ¿½øĞĞÅĞ¶Ï
-				 * µ±´ğ°¸ÊıĞ¡ÓÚ»ò´óÓÚÔËËãÊ½µÄÊıÁ¿Ê±£¬¸ø³öÏàÓ¦´íÎóÌáÊ¾
+				 * å¯¹ç”¨æˆ·ç»™å®šçš„ç­”æ¡ˆæ•°é‡è¿›è¡Œåˆ¤æ–­
+				 * å½“ç­”æ¡ˆæ•°å°äºæˆ–å¤§äºè¿ç®—å¼çš„æ•°é‡æ—¶ï¼Œç»™å‡ºç›¸åº”é”™è¯¯æç¤º
 				 */
 				if (userResult.length < ensureNumber) {
-					JOptionPane.showMessageDialog(null, "´ğ°¸ÊıÁ¿¹ıÉÙ£¬Çë¸ø³öÕıÈ·ÊıÁ¿µÄ´ğ°¸£¡", "ÌáÊ¾", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ç­”æ¡ˆæ•°é‡è¿‡å°‘ï¼Œè¯·ç»™å‡ºæ­£ç¡®æ•°é‡çš„ç­”æ¡ˆï¼", "æç¤º", JOptionPane.INFORMATION_MESSAGE);
 				} else if (userResult.length > ensureNumber) {
-					JOptionPane.showMessageDialog(null, "´ğ°¸ÊıÁ¿¹ı¶à£¬Çë¸ø³öÕıÈ·ÊıÁ¿µÄ´ğ°¸£¡", "ÌáÊ¾", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ç­”æ¡ˆæ•°é‡è¿‡å¤šï¼Œè¯·ç»™å‡ºæ­£ç¡®æ•°é‡çš„ç­”æ¡ˆï¼", "æç¤º", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					
 					/**
-					 * µ÷ÓÃMatchAnswerÀàµÄmatch()·½·¨£¬¶ÔÓÃ»§¸ø¶¨µÄ´ğ°¸½øĞĞ¼ìÑé
-					 * ²¢°Ñ¼ìÑé½á¹û±£´æµ½matchOutputStrs×Ö·û»º³åÇøÀï
-					 * ¸ø³öÕıÈ·ºÍ´íÎóµÄ´ğ°¸Êı
+					 * è°ƒç”¨MatchAnswerç±»çš„match()æ–¹æ³•ï¼Œå¯¹ç”¨æˆ·ç»™å®šçš„ç­”æ¡ˆè¿›è¡Œæ£€éªŒ
+					 * å¹¶æŠŠæ£€éªŒç»“æœä¿å­˜åˆ°matchOutputStrså­—ç¬¦ç¼“å†²åŒºé‡Œ
+					 * ç»™å‡ºæ­£ç¡®å’Œé”™è¯¯çš„ç­”æ¡ˆæ•°
 					 */
 					for (int i = 0; i < ensureNumber; i ++) {
 						matchOutputStrs.append(MatchAnswer.match(rightResult[i], userResult[i]));
 					}
-					matchOutputStrs.append("\n¹²ÓĞ " + ensureNumber + " ÌâÔËËãÊ½\n");
-					matchOutputStrs.append("ÕıÈ·´ğ°¸£º " + MatchAnswer.getRightNums() + "Ìâ\n");
-					matchOutputStrs.append("´íÎó´ğ°¸£º " + MatchAnswer.getWrongNums() + "Ìâ\n");
+					matchOutputStrs.append("\nå…±æœ‰ " + ensureNumber + " é¢˜è¿ç®—å¼\n");
+					matchOutputStrs.append("æ­£ç¡®ç­”æ¡ˆï¼š " + MatchAnswer.getRightNums() + "é¢˜\n");
+					matchOutputStrs.append("é”™è¯¯ç­”æ¡ˆï¼š " + MatchAnswer.getWrongNums() + "é¢˜\n");
 					if (MatchAnswer.getRightNums() == ensureNumber) {
-						matchOutputStrs.append("À÷º¦ÁËÎÒµÄ¸ç£¡Äã´ğ¶ÔÁËËùÓĞÌâÄ¿£¡\n");
+						matchOutputStrs.append("å‰å®³äº†æˆ‘çš„å“¥ï¼ä½ ç­”å¯¹äº†æ‰€æœ‰é¢˜ç›®ï¼\n");
 					} else if (MatchAnswer.getRightNums() == 0) {
-						matchOutputStrs.append("Ò»Ìâ¶¼Ã»´ğ¶Ô¡£¡£¡£Ğ¡Ñ§Ğ£³¤ÏëÄãÁË£¡");
+						matchOutputStrs.append("ä¸€é¢˜éƒ½æ²¡ç­”å¯¹ã€‚ã€‚ã€‚å°å­¦æ ¡é•¿æƒ³ä½ äº†ï¼");
 					} else {
-						matchOutputStrs.append("Ğ»Ğ»²ÎÓë£¬»¶Ó­ÔÙ´ÎÌôÕ½£¡");
+						matchOutputStrs.append("è°¢è°¢å‚ä¸ï¼Œæ¬¢è¿å†æ¬¡æŒ‘æˆ˜ï¼");
 					}
 					matchAnswer.setText(matchOutputStrs.toString());
 				}
 			}
-		} else if (button.equals("ÖØÖÃ")) {
+		} else if (button.equals("é‡ç½®")) {
 			/**
-			 * Çå¿ÕËùÓĞÎÄ±¾¿ò£¬ÒÔ¼°ËùÓĞÊı¾İ
+			 * æ¸…ç©ºæ‰€æœ‰æ–‡æœ¬æ¡†ï¼Œä»¥åŠæ‰€æœ‰æ•°æ®
 			 */
 			resetDatas(true);
 		}	
