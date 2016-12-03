@@ -23,7 +23,7 @@ public class Calculate {
         return result;  
     }  
     /** 
-     * ½«ÖĞ×º±í´ïÊ½×ª»¯Îªºó×º±í´ïÊ½ 
+     * å°†ä¸­ç¼€è¡¨è¾¾å¼è½¬åŒ–ä¸ºåç¼€è¡¨è¾¾å¼ 
      */  
     public ArrayList<String> getPostOrder(ArrayList<String> inOrderList) {
         ArrayList<String> result = new ArrayList<String>();  
@@ -58,7 +58,7 @@ public class Calculate {
     }  
       
     /** 
-     * ¼ÆËãºó×º±í´ïÊ½ 
+     * è®¡ç®—åç¼€è¡¨è¾¾å¼ 
      */  
     public Fraction calculate(ArrayList<String> postOrder){  
         Stack<Fraction> stack = new Stack();
@@ -93,7 +93,7 @@ public class Calculate {
     }  
       
     /** 
-     * ±È½ÏÔËËã·ûµÈ¼¶ 
+     * æ¯”è¾ƒè¿ç®—ç¬¦ç­‰çº§ 
      */  
     public static boolean compare(String peek, String cur){  
         if("*".equals(peek) && ("/".equals(cur) || "*".equals(cur) ||"+".equals(cur) ||"-".equals(cur))){  
@@ -113,9 +113,8 @@ public class Calculate {
 //        Calculate calculate = new Calculate();  
 //        String s = "(10-4)*(3+8)/55";
 //        ArrayList result = calculate.getStringList(s);
-//        result = calculate.getPostOrder(result);   //ÖĞ×º±äºó×º  
-//        Fraction answer = calculate.calculate(result);   //¼ÆËã  
+//        result = calculate.getPostOrder(result);   //ä¸­ç¼€å˜åç¼€  
+//        Fraction answer = calculate.calculate(result);   //è®¡ç®—  
 //        System.out.println(answer.toString());
 //    } 
-    
 }
