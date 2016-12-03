@@ -59,6 +59,10 @@ public class Fraction {
 	 * 将分数进行约分
 	 */
 	public void simplify() {
+		if (b < 0) { // 将分母的负号移到分子
+			a = -a;
+			b = -b;
+		}
 		int m = gcd(a, b);
 		if (m != 0) {
 			a /= m;
