@@ -15,13 +15,13 @@ public class CaculatorView extends JFrame implements ActionListener {
 	static final int WIDTH = 810;
 	static final int HEIGTH = 500;
 	
-	private JTextArea equationInput = new JTextArea(10, 25);
+	private JTextArea equationInput = new JTextArea(10, 15);
 	private JScrollPane scp1 = new JScrollPane(equationInput);
 	
 	private JTextArea answerInput = new JTextArea(10, 15);
 	private JScrollPane scp2 = new JScrollPane(answerInput);
 	
-	private JTextArea matchAnswer = new JTextArea(10, 15);
+	private JTextArea matchAnswer = new JTextArea(10, 25);
 	private JScrollPane scp3 = new JScrollPane(matchAnswer);
 	
 	private JTextField numberText = new JTextField();
@@ -54,14 +54,17 @@ public class CaculatorView extends JFrame implements ActionListener {
 		this.setContentPane(jPanel);
 		jPanel.setLayout(null);
 	
+		equationInput.setEditable(false);
+		matchAnswer.setEditable(false);
+		
 		jLabel.setBounds(20, 10, 50, 25);
 		numberText.setBounds(60, 10, 60, 25);
 		ensureEquation.setBounds(125, 10, 60, 25);
-		ensureAnswer.setBounds(350, 10, 90, 25);
-		reset.setBounds(580, 10, 60, 25);
-		scp1.setBounds(20,50,300,400);
-		scp2.setBounds(350,50,200,400);
-		scp3.setBounds(580,50,200,400);
+		ensureAnswer.setBounds(250, 10, 90, 25);
+		reset.setBounds(480, 10, 60, 25);
+		scp1.setBounds(20,50,200,400);
+		scp2.setBounds(250,50,200,400);
+		scp3.setBounds(480,50,300,400);
 		
 		ensureEquation.addActionListener(this);
 		ensureAnswer.addActionListener(this);
@@ -93,8 +96,10 @@ public class CaculatorView extends JFrame implements ActionListener {
 		
 	}
 	
-	void resetDatas() {
-		numberText.setText("");
+	void resetDatas(boolean flag) {
+		if (flag) {
+			numberText.setText("");
+		}
 		equationInput.setText("");
 		answerInput.setText("");
 		matchAnswer.setText("");
@@ -113,9 +118,14 @@ public class CaculatorView extends JFrame implements ActionListener {
 
 		String button = e.getActionCommand();
 		if (button.equals("确认")) {
+			resetDatas(false);
 			String numberStr = numberText.getText();
 			if (numberStr.length() != 0) {
-				ensureNumber = Integer.parseInt(numberStr);
+				if ((Integer.parseInt(numberStr) > 100) || (Integer.parseInt(numberStr) <= 0)) {
+					JOptionPane.showMessageDialog(null, "题量最多为100题！请重新输入！", "提示", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					ensureNumber = Integer.parseInt(numberStr);
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, "请先输入题量！", "提示", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -129,19 +139,28 @@ public class CaculatorView extends JFrame implements ActionListener {
 			}
 			equationInput.setText(equationStrs.toString());			
 		} else if (button.equals("确认答案")) {
-			userResultStrs = answerInput.getText();
-			userResult = userResultStrs.split("\n");
-			
-			if (userResult.length != ensureNumber) {
-				JOptionPane.showMessageDialog(null, "请给出所有题目的答案！", "提示", JOptionPane.INFORMATION_MESSAGE);
+			String numberStr = numberText.getText();
+			if (numberStr.length() == 0) {
+				JOptionPane.showMessageDialog(null, "请先输入题量！", "提示", JOptionPane.INFORMATION_MESSAGE);
+			} else if(ensureNumber == 0) {
+				JOptionPane.showMessageDialog(null, "请先生成表达式！", "提示", JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				for (int i = 0; i < ensureNumber; i ++) {
-					matchOutput.append(MatchAnswer.match(result[i], userResult[i]));
+				userResultStrs = answerInput.getText();
+				userResult = userResultStrs.split("\n");
+				
+				if (userResult.length < ensureNumber) {
+					JOptionPane.showMessageDialog(null, "答案数量过少，请给出正确数量的答案！", "提示", JOptionPane.INFORMATION_MESSAGE);
+				} else if (userResult.length > ensureNumber) {
+					JOptionPane.showMessageDialog(null, "答案数量过多，请给出正确数量的答案！", "提示", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					for (int i = 0; i < ensureNumber; i ++) {
+						matchOutput.append(MatchAnswer.match(result[i], userResult[i]));
+					}
+					matchAnswer.setText(matchOutput.toString());
 				}
-				matchAnswer.setText(matchOutput.toString());
 			}
 		} else if (button.equals("重置")) {
-			resetDatas();
+			resetDatas(true);
 		}	
 		
 	}
