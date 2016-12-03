@@ -23,6 +23,7 @@ public class Calculate {
         return result;  
     }  
     /** 
+     *
      * 将中缀表达式转化为后缀表达式 
      */  
     public ArrayList<String> getPostOrder(ArrayList<String> inOrderList) {
@@ -58,6 +59,7 @@ public class Calculate {
     }  
       
     /** 
+     *
      * 计算后缀表达式 
      */  
     public Fraction calculate(ArrayList<String> postOrder){  
@@ -73,15 +75,22 @@ public class Calculate {
             	Fraction front = (Fraction)stack.pop();  
             	Fraction res = new Fraction();  
                 switch (postOrder.get(i).charAt(0)) {  
+                    //加法
                 case '+':  
                     res = Fraction.add(front, back);
                     break;  
+
+                    //减法
                 case '-':  
                     res = Fraction.sub(front, back);
-                    break;  
+                    break; 
+
+                    //乘法 
                 case '*':  
                     res = Fraction.mul(front, back);  
                     break;  
+
+                    //除法
                 case '/':  
                     res = Fraction.div(front, back);  
                     break;  
@@ -93,7 +102,8 @@ public class Calculate {
     }  
       
     /** 
-     * 比较运算符等级 
+     * 
+     *比较运算符等级 
      */  
     public static boolean compare(String peek, String cur){  
         if("*".equals(peek) && ("/".equals(cur) || "*".equals(cur) ||"+".equals(cur) ||"-".equals(cur))){  
