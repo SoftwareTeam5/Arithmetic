@@ -1,7 +1,9 @@
+import org.junit.Test;
+
 
 public class Main_func {
 	
-	int N; //用户输入的题量数
+	int N=2; //用户输入的题量数
 	String[] expression = new String[100]; //存随机生成的运算表达式
 	String[] result = new String[100]; //运算表达式的结果
 	String[] uResult = new String[100]; //存随机生成的表达式
@@ -18,12 +20,17 @@ public class Main_func {
 		for(int i=0; i<N; i++) {
 			match[i] = match(result[i],uResult[i]);
 		}
+		
+		for(int i=0; i<N; i++) {
+			System.out.println(match[i]);
+		}
 	}
 	
 	
 	/*主函数
 	 * @function new Main_fun()
 	 * */
+	@Test
 	public static void main(String[] args) {
 		new Main_func();
 	}
