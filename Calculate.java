@@ -69,7 +69,6 @@ public class Calculate {
             	int num = Integer.parseInt(postOrder.get(i));
             	Fraction fraction = new Fraction(num);
                 stack.push(fraction);
-                System.out.println(Integer.parseInt(postOrder.get(i)));
             }else{  
             	Fraction back = (Fraction)stack.pop();  
             	Fraction front = (Fraction)stack.pop();  
@@ -119,12 +118,16 @@ public class Calculate {
     }  
    
     
-//    public static void main(String[] args) {
-//        Calculate calculate = new Calculate();  
-//        String s = "(10-4)*(3+8)/55";
-//        ArrayList result = calculate.getStringList(s);
-//        result = calculate.getPostOrder(result);   //涓紑鍙樺悗缂�  
-//        Fraction answer = calculate.calculate(result);   //璁＄畻  
-//        System.out.println(answer.toString());
-//    } 
+    public static String getAnswer(String s) {
+        Calculate calculate = new Calculate();  
+        ArrayList result = calculate.getStringList(s);
+        result = calculate.getPostOrder(result);   //中缀变后缀  
+        Fraction answer = calculate.calculate(result);   //计算  
+        return answer.toString();
+    }
+    
+//    public static void main(String args[]) {
+//    	System.out.println(getAnswer("(5-4)*(3+8)"));
+//    }
+    
 }
