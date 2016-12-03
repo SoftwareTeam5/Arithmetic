@@ -2,14 +2,14 @@ package com.software.calculator;
 import java.util.Random;
 
 /**
- * Created by wythe on 2016/12/3.
+ * Created by weeway on 2016/12/3.
  */
 public class Equation {
     private static char[] symbol = new char[4];
     private static String[] Equation = new String[1000];
     private static int amount = 100;
-    private static boolean repeat = false;
-
+    
+    //随机生成四则运算符
     private static char create_symbol(){
         char symbol;
         Integer base;
@@ -27,21 +27,26 @@ public class Equation {
         return symbol;
     }
 
+    //int型转String
     private static String int2String(Integer number){
         Integer temp = Math.abs(number);
         return String.valueOf(temp);
     }
 
+    //拼接表达式
     private static String convertEqu2Str(String operand1, String operand2, char symbol){
         String equation;
         equation = operand1+symbol+operand2;
         return equation;
     }
 
+    //生成算术表达式
     public static void createEquation(){
         Random random = new Random();
 
         for(int i = 0; i < amount; ++i){
+            
+            //运算符个数
             int count = random.nextInt(11)%4+2;
 
             int openrand1 = random.nextInt(11)+1;
@@ -74,6 +79,7 @@ public class Equation {
         }
     }
 
+    //随机获取表达式
     public static String getEquation(){
         Random random = new Random();
         int index = random.nextInt(amount);
