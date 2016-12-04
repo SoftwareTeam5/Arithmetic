@@ -31,3 +31,5 @@
 - 测试样例三：部分正确部分错误
  ![](http://images2015.cnblogs.com/blog/1020306/201612/1020306-20161203170841787-1570852659.jpg)
 
+## 五、动画演示
+ ![](https://github.com/weeway/Netdisk/raw/master/pictures/Presentation%20.gif)
