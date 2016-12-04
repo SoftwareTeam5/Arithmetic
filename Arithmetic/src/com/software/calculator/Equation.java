@@ -2,14 +2,18 @@ package com.software.calculator;
 import java.util.Random;
 
 /**
- * Created by weeway on 2016/12/3.
+ * 这个类生成四则运算表达式
+ * Created on 2016/12/3.
  */
 public class Equation {
     private static char[] symbol = new char[4];
     private static String[] Equation = new String[1000];
     private static int amount = 100;
     
-    //随机生成四则运算符
+    /**
+     * 随机生成四则运算符(+、-、*、/)
+     * @return symbol
+     */
     private static char create_symbol(){
         char symbol;
         Integer base;
@@ -27,26 +31,38 @@ public class Equation {
         return symbol;
     }
 
-    //int型转String
+    /**
+     * int型转String
+     * @param number
+     * @return str_num
+     */
     private static String int2String(Integer number){
         Integer temp = Math.abs(number);
         return String.valueOf(temp);
     }
 
-    //拼接表达式
+    /**
+     * 拼接表达式
+     * @param operand1 操作数1
+     * @param operand2 操作数2
+     * @param symbol 运算符
+     * @return equation
+     */
     private static String convertEqu2Str(String operand1, String operand2, char symbol){
         String equation;
         equation = operand1+symbol+operand2;
         return equation;
     }
 
-    //生成算术表达式
+    /**
+     * 生成四则运算表达式
+     * 表达式保存在数组 Equation
+     * @return Nothing
+     */
     public static void createEquation(){
         Random random = new Random();
 
         for(int i = 0; i < amount; ++i){
-            
-            //运算符个数
             int count = random.nextInt(11)%4+2;
 
             int openrand1 = random.nextInt(11)+1;
@@ -79,7 +95,10 @@ public class Equation {
         }
     }
 
-    //随机获取表达式
+   /**
+    * 获得四则运算表达式
+    * @return equation.
+    */
     public static String getEquation(){
         Random random = new Random();
         int index = random.nextInt(amount);
