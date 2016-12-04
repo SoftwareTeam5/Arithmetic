@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
 
+import com.software.calculatorTest.MatchAnswerTest;
+
 /**
  * 程序的UI界面，对用户的输入输出进行判定运算，并给出相应的提示
  * 程序的主框架，调用了其他类封装好的静态方法
@@ -109,6 +111,7 @@ public class CaculatorView extends JFrame implements ActionListener {
 	}
 	
 	public static void main(String[] args) throws IOException{
+		new MatchAnswerTest();
 		new CaculatorView();
 	}
 	
