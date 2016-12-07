@@ -14,8 +14,8 @@ public class Equation {
      * 随机生成四则运算符(+、-、*、/)
      * @return symbol
      */
-    private static char create_symbol(){
-        char symbol;
+    private static char createOperator(){
+        char operator;
         Integer base;
         Integer index;
         Random random = new Random();
@@ -23,12 +23,12 @@ public class Equation {
         index = base % 4;
 
         switch (index){
-            case 0: symbol = '+'; break;
-            case 1: symbol = '-'; break;
-            case 2: symbol = '*'; break;
-            default:symbol = '/'; break;
+            case 0: operator = '+'; break;
+            case 1: operator = '-'; break;
+            case 2: operator = '*'; break;
+            default:operator = '/'; break;
         }
-        return symbol;
+        return operator;
     }
 
     /**
@@ -61,38 +61,43 @@ public class Equation {
     public static String createEquation(){
         Random random = new Random();
         String interim;
-        String finalStatus;
-        int count = random.nextInt(11)%4+2;
+        String finalEquation;
 
         int operand1 = random.nextInt(11)+1;
         int operand2 = random.nextInt(11)+1;
-        char symbol = create_symbol();
         String strOp1 = int2String(operand1);
         String strOp2 = int2String(operand2);
-        interim = convertEqu2Str(strOp1,strOp2,symbol);
 
-        if(count > 2){
-            for(; count>2; count--){
+        char operator = createOperator();
+        interim = convertEqu2Str(strOp1,strOp2,operator);
+
+        int numOfOperands = random.nextInt(11)%4+2;
+        if(numOfOperands > 2){
+            for(; numOfOperands > 2; numOfOperands--){
                 strOp1 = interim;
-                int change = random.nextInt(11)%2;
-                if (change == 0){
+
+                int bracket = random.nextInt(11)%2;
+                if (bracket == 0){
                     strOp1 = '('+strOp1+')';
                 }
-                symbol = create_symbol();
+
+                operator = createOperator();
                 operand2 = random.nextInt(11)+1;
                 strOp2 = int2String(operand2);
-                change = random.nextInt(10)%2;
-                if(change == 0){
+
+                int bracketPosition = random.nextInt(10)%2;
+                if(bracketPosition == 0){
                     String temp = strOp1;
                     strOp1 = strOp2;
                     strOp2 = temp;
                 }
-                interim = convertEqu2Str(strOp1,strOp2,symbol);
+
+                interim = convertEqu2Str(strOp1,strOp2,operator);
             }
         }
 
-        finalStatus = interim;
-        return finalStatus;
+        finalEquation = interim;
+        return finalEquation;
     }
 
     /**
